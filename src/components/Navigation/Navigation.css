@@ -1,0 +1,9 @@
+nav {
+    background: lightblue;
+    padding: 0.2rem;
+    width: 100%;
+    font-size: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
