@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, {Component, useState} from "react"
 import PokeInput from './Input.js'
 import PokeSubmit from './Submit.js'
 import Previous from './Prev.js'
@@ -6,8 +6,39 @@ import Next from './Next.js'
 import PokeRandom from "./RandomBtn.js"
 import PokeTemplate from './Poketemplate.js'
 
+export function MainF(){
+    const [foundPokemons, setFoundPokemons] = useState([]);
 
-class PokeSearch extends Component {
+
+
+    const handleSubmit = ()=>{}
+    const handleChange = ()=>{}
+    const getRandomPokemon = ()=>{}
+    const showPreviousPokemon = ()=>{}
+    const showNextPokemon = ()=>{}
+
+
+  return (
+      <div>
+          <form onSubmit={handleSubmit} className="flexBox">
+              <PokeInput onChange={handleChange} value={state.value}/>
+              <PokeSubmit input={state.input}/>
+          </form>
+          <div className="flexBox flexColumn">
+              <PokeTemplate name={state.pokeName} image= {state.pokeImage}/>
+              <PokeRandom onClick={getRandomPokemon}/>
+          </div>
+          <div className="flexBox">
+              <Previous onClick={()=> showPreviousPokemon()}/>
+              <Next onClick={()=>{showNextPokemon()}}/>
+          </div>
+          {JSON.stringify(foundPokemons)}
+      </div>
+  )
+}
+
+
+class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -19,7 +50,7 @@ class PokeSearch extends Component {
       currentPokemon: 0,
       flag: true
     }
-    
+
     this.handleChange = this.handleChange.bind(this) // czemu arrow function ignoruje preventDefault???
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getRandomPokemon = this.getRandomPokemon.bind(this)
@@ -118,7 +149,7 @@ class PokeSearch extends Component {
         flag: true
 
       }, ()=> console.log(this.state.pokeList.length, this.state.currentPokemon, this.state.pokeList))
-    
+
   }
 
   render() {
@@ -141,4 +172,4 @@ class PokeSearch extends Component {
   }
 }
 
-export default PokeSearch
+export default Main
