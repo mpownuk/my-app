@@ -1,16 +1,16 @@
 import React from "react";
-import './index.css'
-import Nav from './Nav.js'
+
+import {Navigation} from './components/Navigation/Navigation.jsx'
 import Main from './Main.js'
 
 export function App() {
 
     return (
         <div>
-            <Nav/>
+            <Navigation/>
             <Main/>
         </div>
     )
 }
 
-// export default App
+export default App
