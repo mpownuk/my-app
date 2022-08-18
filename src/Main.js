@@ -13,7 +13,7 @@ class PokeSearch extends Component {
     this.state = {
       input: '',
       submit: '',
-      // pokeName: '',
+      pokeName: 'Enter Name of Pokemon!',
       pokeImage: '',
       pokeList: [],
       currentPokemon: 0,
