@@ -1,7 +1,7 @@
 import React ,{useState, useEffect} from "react"
 import {PokeInput} from './Input'
 import {PokeSubmit} from './Submit'
-import {Previous} from './Prev'
+import {Prev} from './Prev'
 import {Next} from './Next'
 import {PokeRandom} from "./RandomBtn"
 import {PokeTemplate} from './Poketemplate'
@@ -13,6 +13,7 @@ export function Main() {
   const [submit, setSubmit] = useState('')
   const [pokeName, setPokeName] = useState('Enter Name of Pokemon!')
   const [pokeImage, setPokeImage] = useState('')
+  const [pokePictures, setPokePictures] = useState([])
   const [pokeList, setPokeList] = useState([])
   const [currentPokemon, setCurrentPokemon] = useState(0)
   const [flag, setFlag] = useState(true)
@@ -40,9 +41,12 @@ export function Main() {
     let name = data.species.name.toUpperCase()
     let image = data.sprites.other['official-artwork'].front_default
       let listOfPokes = pokeList.slice()
+      let picsOfPokes = pokePictures.slice()
       if (flag) {
         listOfPokes.push(data.species.name)
-          setCurrentPokemon(listOfPokes.length)
+        picsOfPokes.push(image)
+        setPokePictures(picsOfPokes)
+        setCurrentPokemon(listOfPokes.length)
       }
         setPokeName(name)
         setPokeImage(image)
@@ -67,10 +71,7 @@ export function Main() {
     })
   }
 
-  useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit)})
-
   const  showPreviousPokemon = () => {
-      console.log('input ',input,'submit ',submit, 'pokename ',pokeName)
       if(currentPokemon <= 1) {
         return
       } else {
@@ -81,7 +82,6 @@ export function Main() {
   }
 
   const showNextPokemon = () => {
-    console.log('input ',input,'submit ',submit, 'pokename ',pokeName)
       if(currentPokemon >= pokeList.length) {
         return
       } else {
@@ -103,7 +103,11 @@ export function Main() {
     setFlag(true)
   }
 
+  // eslint-disable-next-line
   useEffect(handlePokeApi,[submit])
+
+  useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit, pokeImage)})
+
   
   return (
     <div>
@@ -116,10 +120,10 @@ export function Main() {
         <PokeRandom onClick={getRandomPokemon}/>
       </div>
       <div className="flexBox">
-        <Previous onClick={showPreviousPokemon}/>
-        <Next onClick={showNextPokemon}/>
+        <Prev onClick={showPreviousPokemon} value={'previous'}/>
+        <Next onClick={showNextPokemon} value={'Next'}/>
       </div>
-      <PokeContainer />
+      <PokeContainer pokeList={pokeList} pictures={pokePictures}/>
     </div>
   )
 

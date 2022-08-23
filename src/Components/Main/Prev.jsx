@@ -1,5 +1,5 @@
-export const Previous = (props) => {
+export const Prev= (props) => {
     return (
-      <button onClick={props.onClick}>Previous</button>
+      <button onClick={props.onClick}>{props.value}</button>
     )
   }

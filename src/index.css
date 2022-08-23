@@ -39,12 +39,31 @@ button {
     margin: 0.625rem;
 }
 
-span {
-    background: red;
-    width: 8rem;
-    height: 8rem;
+.poke--item {
+    margin: 0.2rem;
+    min-width: 6rem;
+    height: 6rem;
+    background-color: red;
+    text-align: center;
 }
- .pokeBelt {
+
+.poke--icon {
+    width: 4rem;
+    height: 4rem;
+}
+
+ .poke--container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     width: 100%;
-    height: 8rem;
+    height: 6rem;
+    background-color: lightgray;
  }
+
+.poke--container__items {
+    display: flex;
+    width: 100%;
+    height: 6rem;
+    overflow: hidden;
+}
