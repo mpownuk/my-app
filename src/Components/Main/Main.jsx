@@ -116,8 +116,8 @@ export function Main() {
         <PokeRandom onClick={getRandomPokemon}/>
       </div>
       <div className="flexBox">
-        <Previous onClick={()=> showPreviousPokemon()}/>
-        <Next onClick={()=>{showNextPokemon()}}/>
+        <Previous onClick={showPreviousPokemon}/>
+        <Next onClick={showNextPokemon}/>
       </div>
       <PokeContainer />
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import {Navigation} from '../src/Components/Navigation/Navigation'
-import {Main} from '../src/Components/Main/Main'
+import {Navigation} from './Components/Navigation/Navigation'
+import {Main} from './Components/Main/Main'
 
 export function App() {
     return (
