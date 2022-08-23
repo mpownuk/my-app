@@ -22,7 +22,7 @@ export const PokeContainer = ({pokeList, pictures}) => {
                 pokeList.map((poke, idx)=>{
                     return (
                         <div className="poke--item" key={poke}>
-                            <img className="poke--icon" src={`${pictures[idx]}`}></img>
+                            <img className="poke--icon" src={`${pictures[idx]}` } alt=" "></img>
                             <p>{poke}</p>
                         </div>
                     )
