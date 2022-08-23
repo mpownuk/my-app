@@ -1,7 +1,6 @@
-const PokeInput = (props) => {
+export const PokeInput = (props) => {
     return ( 
       <input onChange={props.onChange}></input>
     )
   }
   
-export default PokeInput

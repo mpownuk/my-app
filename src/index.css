@@ -7,16 +7,6 @@ p {
     padding: 0.2rem;
 }
 
-nav {
-    background: lightblue;
-    padding: 0.2rem;
-    width: 100%;
-    font-size: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .flexBox {
     display: flex;
     justify-content: center;
@@ -48,3 +38,13 @@ img {
 button {
     margin: 0.625rem;
 }
+
+span {
+    background: red;
+    width: 8rem;
+    height: 8rem;
+}
+ .pokeBelt {
+    width: 100%;
+    height: 8rem;
+ }

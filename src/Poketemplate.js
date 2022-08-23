@@ -1,4 +1,4 @@
-const PokeTemplate =(props) => {
+export const PokeTemplate =(props) => {
     return (
       <div className="flexBox flexColumn"> 
         <h1>{props.name}</h1>
@@ -13,5 +13,3 @@ const PokeTemplate =(props) => {
   PokeTemplate.defaultProps = {
     name: 'Enter Name of Pokemon!'
   }
-
-  export default PokeTemplate
