@@ -55,6 +55,7 @@ export function Main() {
   }
 
   const handlePokeApi = () => {
+    if (!submit) return
     let pokemon = `https://pokeapi.co/api/v2/pokemon/${submit}`.toLowerCase()
     fetch(pokemon)
     .then((res)=> {
