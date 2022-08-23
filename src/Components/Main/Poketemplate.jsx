@@ -9,7 +9,3 @@ export const PokeTemplate =(props) => {
   
     )
   }
-
-  PokeTemplate.defaultProps = {
-    name: 'Enter Name of Pokemon!'
-  }
