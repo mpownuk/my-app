@@ -45,6 +45,7 @@ button {
     height: 6rem;
     background-color: red;
     text-align: center;
+    overflow: hidden;
 }
 
 .poke--icon {

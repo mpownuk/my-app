@@ -72,6 +72,12 @@ export function Main() {
     })
   }
 
+  const displayPokeFromContainer = (arg) => {
+    setSubmit(arg)
+    setFlag(false)
+    console.log(arg)
+  }
+
   const  showPreviousPokemon = () => {
       if(currentPokemon <= 1) {
         return
@@ -124,7 +130,7 @@ export function Main() {
         <Prev onClick={showPreviousPokemon} value={'previous'}/>
         <Next onClick={showNextPokemon} value={'Next'}/>
       </div>
-      <PokeContainer pokeList={pokeList} pictures={pokePictures}/>
+      <PokeContainer pokeList={pokeList} pictures={pokePictures} func={displayPokeFromContainer}/>
     </div>
   )
 
