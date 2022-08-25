@@ -20,12 +20,12 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
         },5)
     }
 
-    const mouseHandlerDown = (event) => {
+    const mouseDownHandler = (event) => {
         setMouseIsDown(true)
-        setMouseEntry(event.clientX + movableEl.current.scrollLeft)
+        setMouseEntry(event.touches[0].clientX + movableEl.current.scrollLeft)
     }
 
-    const mouseHandlerUp = () => {
+    const mouseUpHandler = () => {
     setMouseIsDown(false)
     }
 
@@ -33,14 +33,14 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
         if(mouseIsDown) {
             let offset = mouseEntry
             movableEl.current.scrollLeft = (offset - event.clientX )
-            console.log(event.clientX, mouseEntry)
+            console.log(event.touches[0].clientX, mouseEntry)
         }
     }
 
     return (
         <div className="poke--scrollbelt">
             <Prev className='hidden--button' value={'<'} onClick={()=>{moveBar(movableEl.current, 254, -10)}}/>
-            <div className="poke--scrollbelt__elements" ref={movableEl} onMouseDown={mouseHandlerDown} onMouseUp={mouseHandlerUp} onMouseMove={contMove}>
+            <div className="poke--scrollbelt__elements" ref={movableEl} onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler} onMouseMove={contMove}>
             {
                 pokeList.map((poke, idx)=>{
                     return (
