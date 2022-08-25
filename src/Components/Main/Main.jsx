@@ -72,8 +72,9 @@ export function Main() {
     })
   }
 
-  const displayPokeFromContainer = (arg) => {
+  const displayPokeFromContainer = (arg, index) => {
     setSubmit(arg)
+    setCurrentPokemon(index+1)
     setFlag(false)
     console.log(arg)
   }

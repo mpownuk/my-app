@@ -47,7 +47,7 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
                         <span className="poke--scrollbelt__item" key={poke} >
                             <img className="poke--scrollbelt__icon" src={`${pictures[idx]}` } alt=" "></img>
                             <p>Select:</p>
-                            <button onClick={()=>{func(poke)}}>{poke.toUpperCase()}</button>
+                            <button onClick={()=>{func(poke, idx)}}>{poke.toUpperCase()}</button>
                         </span>
                     )
                 })
