@@ -40,7 +40,7 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
     return (
         <div className="poke--scrollbelt">
             <Prev className='hidden--button' value={'<'} onClick={()=>{moveBar(movableEl.current, 254, -10)}}/>
-            <div className="poke--scrollbelt__elements" ref={movableEl} onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler} onMouseMove={contMove}>
+            <div className="poke--scrollbelt__elements" ref={movableEl} onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler} onMouseMove={contMove} onTouchStart={mouseDownHandler} onTouchEnd={mouseUpHandler} onTouchMove={contMove}>
             {
                 pokeList.map((poke, idx)=>{
                     return (
