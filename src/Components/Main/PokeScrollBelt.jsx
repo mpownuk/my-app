@@ -22,7 +22,7 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
 
     const mouseDownHandler = (event) => {
         setMouseIsDown(true)
-        setMouseEntry(event.touches[0].clientX + movableEl.current.scrollLeft)
+        setMouseEntry(event.clientX + movableEl.current.scrollLeft)
     }
 
     const mouseUpHandler = () => {
@@ -33,7 +33,7 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
         if(mouseIsDown) {
             let offset = mouseEntry
             movableEl.current.scrollLeft = (offset - event.clientX )
-            console.log(event.touches[0].clientX, mouseEntry)
+            console.log(event.clientX, mouseEntry)
         }
     }
 
