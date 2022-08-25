@@ -4,8 +4,8 @@ import {PokeSubmit} from './Submit'
 import {Prev} from './Prev'
 import {Next} from './Next'
 import {PokeRandom} from "./RandomBtn"
-import {PokeTemplate} from './Poketemplate'
-import {PokeContainer} from './PokeContainer'
+import {PokeTemplate} from './PokeTemplate'
+import {PokeContainer} from './PokeScrollBelt'
 
 
 export function Main() {
