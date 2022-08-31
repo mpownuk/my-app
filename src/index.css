@@ -34,6 +34,12 @@ img {
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 12px rgba(0, 0, 255, 0.5) inset;
+    transition: 0.2s;
+}
+
+.circle:hover {
+    box-shadow: 0 0 28px rgba(26, 26, 255, 0.5) inset;
+    transition: 0.2s;
 }
 
 button {
@@ -95,7 +101,7 @@ button {
     padding:1rem;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (min-width:600px) {
     .hidden--button {
         display: none;
     }

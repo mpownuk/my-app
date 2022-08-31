@@ -8,7 +8,7 @@ import {PokeTemplate} from './PokeTemplate'
 import {PokeContainer} from './PokeScrollBelt'
 
 
-export function Main() {
+export function PokeDex({style}) {
   const [input, setInput] = useState('')
   const [submit, setSubmit] = useState('')
   const [pokeName, setPokeName] = useState('Enter Name of Pokemon!')
@@ -114,17 +114,21 @@ export function Main() {
   // eslint-disable-next-line
   useEffect(handlePokeApi,[submit])
 
-  useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit, pokeImage)})
+  // useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit, pokeImage)})
 
+  const choosePokemonToBattle = () => {
+    localStorage.setItem('chosenPokemon', pokeName)
+    alert(`${pokeName} chosen to Battle!`)
+  }
   
   return (
-    <div>
+    <div style={style}>
       <form onSubmit={handleSubmit} className="flexBox">
         <PokeInput onChange={handleChange}/>
         <PokeSubmit input={input}/>
       </form>
       <div className="flexBox flexColumn">
-        <PokeTemplate name={pokeName} image={pokeImage}/>
+        <PokeTemplate className="circle" onClick={choosePokemonToBattle} name={pokeName} image={pokeImage}/>
         <PokeRandom onClick={getRandomPokemon}/>
       </div>
       <div className="flexBox">
