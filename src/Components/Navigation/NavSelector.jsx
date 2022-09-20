@@ -1,6 +1,6 @@
 import React from "react";
 
-export function ClickableThing({onClick, value}) {
+export function NavSelector({onClick, value}) {
     return (
         <p onClick={onClick}>
             {value}

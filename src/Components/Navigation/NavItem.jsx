@@ -1,16 +1,10 @@
-import React,{useState} from "react"
-import { ClickableThing } from "./ClickableThing"
+import { NavSelector } from "./NavSelector"
 
-export function NavItem({value:initialValue}) {
-    const [value, setValue] = useState(initialValue)
-
-    const handleClick = () => {
-        setValue(value === initialValue ? 'changed' : initialValue)
-    }
+export function NavItem({onClick, value}) {
 
     return (
-        <ClickableThing 
-            onClick={handleClick}
+        <NavSelector 
+            onClick={onClick}
             value={value}
         />
     )

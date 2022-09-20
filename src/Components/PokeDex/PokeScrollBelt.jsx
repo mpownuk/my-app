@@ -1,8 +1,8 @@
-import React, { useRef, useState} from "react"
-import { Next } from "./Next"
-import {Prev} from "./Prev"
+import React, { useRef, useState } from "react"
+import { Button } from "./Button"
 
-export const PokeContainer = ({pokeList, pictures, func}) => {
+
+export const PokeScrollBelt = ({pokeList, pictures, func}) => {
 
     const [mouseEntry, setMouseEntry] = useState(0)
     const [mouseIsDown, setMouseIsDown] = useState(false)
@@ -39,7 +39,7 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
 
     return (
         <div className="poke--scrollbelt">
-            <Prev className='hidden--button' value={'<'} onClick={()=>{moveBar(movableEl.current, 254, -10)}}/>
+            <Button className='hidden--button' value={'<'} onClick={()=>{moveBar(movableEl.current, 250, -10)}}/>
             <div className="poke--scrollbelt__elements" ref={movableEl} onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler} onMouseMove={contMove} onTouchStart={mouseDownHandler} onTouchEnd={mouseUpHandler} onTouchMove={contMove}>
             {
                 pokeList.map((poke, idx)=>{
@@ -53,7 +53,7 @@ export const PokeContainer = ({pokeList, pictures, func}) => {
                 })
             }
             </div>
-            <Next className='hidden--button' value={'>'} onClick={()=>moveBar(movableEl.current, 254, 10)}/>
+            <Button className='hidden--button' value={'>'} onClick={()=>moveBar(movableEl.current, 250, 10)}/>
         </div>
     )
 }

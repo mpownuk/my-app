@@ -2,13 +2,24 @@ import React from 'react'
 import {NavItem} from '../Navigation/NavItem'
 import "./Navigation.css";
 
-export function Navigation() {
-    const arr = ['click me', 'or me', 'or me!']
+export function Navigation({onClick, value, setPoke}) {
        return (
         <nav>
-            <NavItem value={arr[0]} />
-            <NavItem value={arr[1]} />
-            <NavItem value={arr[2]} />
+            <NavItem onClick={
+                ()=>{onClick(['block','none','none'])}} 
+                value={value[0]
+                }/>
+            <NavItem onClick={
+                ()=>{
+                    onClick(['none','block','none'])
+                    setPoke()
+                }} 
+                value={value[1]
+                } />
+            <NavItem onClick={
+                ()=>{onClick(['none','none','block'])}} 
+                value={value[2]
+                }/>
         </nav>
     ) 
 }

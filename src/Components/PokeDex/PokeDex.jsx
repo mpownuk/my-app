@@ -1,17 +1,15 @@
-import React ,{useState, useEffect} from "react"
+import {useState, useEffect} from "react"
 import {PokeInput} from './Input'
 import {PokeSubmit} from './Submit'
-import {Prev} from './Prev'
-import {Next} from './Next'
-import {PokeRandom} from "./RandomBtn"
 import {PokeTemplate} from './PokeTemplate'
-import {PokeContainer} from './PokeScrollBelt'
+import { PokeScrollBelt} from './PokeScrollBelt'
+import { Button } from "./Button"
 
 
-export function Main() {
+export function PokeDex({style}) {
   const [input, setInput] = useState('')
-  const [submit, setSubmit] = useState('')
-  const [pokeName, setPokeName] = useState('Enter Name of Pokemon!')
+  const [submit, setSubmit] = useState('pikachu')
+  const [pokeName, setPokeName] = useState('pikachu')
   const [pokeImage, setPokeImage] = useState('')
   const [pokePictures, setPokePictures] = useState([])
   const [pokeList, setPokeList] = useState([])
@@ -65,6 +63,7 @@ export function Main() {
         setPokeName(
           "There is no such Pokemon!"
         )
+        return
       }
     })
     .then((data)=> {
@@ -114,26 +113,28 @@ export function Main() {
   // eslint-disable-next-line
   useEffect(handlePokeApi,[submit])
 
-  useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit, pokeImage)})
+  // useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit, pokeImage)})
 
+  const choosePokemonToBattle = () => {
+    localStorage.setItem('chosenPokemon', pokeName)
+    alert(`${pokeName} chosen to Battle!`)
+  }
   
   return (
-    <div>
+    <div style={style}>
       <form onSubmit={handleSubmit} className="flexBox">
         <PokeInput onChange={handleChange}/>
         <PokeSubmit input={input}/>
       </form>
       <div className="flexBox flexColumn">
-        <PokeTemplate name={pokeName} image={pokeImage}/>
-        <PokeRandom onClick={getRandomPokemon}/>
+        <PokeTemplate className="circle" onClick={choosePokemonToBattle} name={pokeName} image={pokeImage}/>
+        <Button onClick={getRandomPokemon} value={'..or catch random one!'}/>
       </div>
       <div className="flexBox">
-        <Prev onClick={showPreviousPokemon} value={'previous'}/>
-        <Next onClick={showNextPokemon} value={'Next'}/>
+        <Button onClick={showPreviousPokemon} value={'previous'}/>
+        <Button onClick={showNextPokemon} value={'Next'}/>
       </div>
-      <PokeContainer pokeList={pokeList} pictures={pokePictures} func={displayPokeFromContainer}/>
+      <PokeScrollBelt pokeList={pokeList} pictures={pokePictures} func={displayPokeFromContainer}/>
     </div>
   )
-
 }
-
