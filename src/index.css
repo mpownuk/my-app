@@ -77,6 +77,7 @@ button {
 .poke--scrollbelt__icon {
     width: 4rem;
     height: 4rem;
+    pointer-events: none;
 }
 
 .poke--scrollbelt__item p {
