@@ -22,7 +22,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: 0.3s;
+      transition: 0.2s;
     }
 
     transition: 0.1s;
@@ -31,7 +31,7 @@
       height: auto;
       filter: drop-shadow(0 0 6px rgb(153, 220, 20)) grayscale(28%)
         brightness(100%);
-      transition: 0.3s;
+      transition: 0.2s;
     }
   }
 }
@@ -40,8 +40,7 @@
   .poke--template--wrapper__inside:hover {
     box-shadow: inset 0 0 150px #02185e;
     background-color: #010e38;
-    // transform: scale(1.05);
-    img:hover {
+    .img--big {
       width: 85%;
       height: auto;
       filter: drop-shadow(0 0 18px rgb(153, 220, 20)) grayscale(0%)

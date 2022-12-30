@@ -4,6 +4,8 @@ import { PokeSubmit } from "./Submit";
 import { PokeTemplate } from "./PokeTemplate";
 import { PokeScrollBelt } from "./PokeScrollBelt";
 import { Button } from "react-bootstrap";
+import { Anim } from "./Anim";
+
 import "./PokeDex.scss";
 
 export function PokeDex({ style }) {
@@ -15,6 +17,7 @@ export function PokeDex({ style }) {
   const [pokeList, setPokeList] = useState([]);
   const [currentPokemon, setCurrentPokemon] = useState(0);
   const [flag, setFlag] = useState(true);
+  const [playAnim, setPlayAnim] = useState(false);
 
   const getRandomPokemon = () => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
@@ -120,28 +123,32 @@ export function PokeDex({ style }) {
 
   const choosePokemonToBattle = () => {
     localStorage.setItem("chosenPokemon", pokeName);
-    alert(`${pokeName} chosen to Battle!`);
+    const handleAnim = () => {
+      setPlayAnim((prevA) => true);
+      setTimeout(() => {
+        setPlayAnim((prevA) => false);
+      }, 2000);
+    };
+    handleAnim();
   };
 
   return (
     <div style={style}>
       <div className="PokeDex">
-        <form onSubmit={handleSubmit} className="flexBox">
+        {playAnim && <Anim />}
+        <form onSubmit={handleSubmit}>
           <PokeInput onChange={handleChange} />
           <PokeSubmit input={input} />
         </form>
         <div className="flexBox flexColumn">
           <PokeTemplate
-            // className="circle"
             onClick={choosePokemonToBattle}
             name={pokeName}
             image={pokeImage}
           />
           <Button onClick={getRandomPokemon}>..or catch random one!</Button>
         </div>
-        <div
-        // className="flexBox"
-        >
+        <div>
           <Button onClick={showPreviousPokemon} value={"previous"} />
           <Button onClick={showNextPokemon} value={"Next"} />
         </div>
