@@ -7,15 +7,17 @@
     color: aliceblue;
   }
   .poke--template--wrapper {
+    position: relative;
     width: 32rem;
     height: 32rem;
     border-radius: 50%;
     box-shadow: 0 0 30px #02185e;
+    overflow: hidden;
+    transition: 0.1s;
 
     .poke--template--wrapper__inside {
       box-shadow: inset 0 0 150px #02185e;
       background-color: #4e5d8e;
-
       border-radius: 50%;
       height: 100%;
       width: 100%;
@@ -25,7 +27,6 @@
       transition: 0.2s;
     }
 
-    transition: 0.1s;
     img {
       width: 80%;
       height: auto;
@@ -33,18 +34,77 @@
         brightness(100%);
       transition: 0.2s;
     }
-  }
-}
-.poke--template--wrapper:hover {
-  box-shadow: 0 0 10px #02185e;
-  .poke--template--wrapper__inside:hover {
-    box-shadow: inset 0 0 150px #02185e;
-    background-color: #010e38;
-    .img--big {
+    .img--big__active {
       width: 85%;
       height: auto;
       filter: drop-shadow(0 0 18px rgb(153, 220, 20)) grayscale(0%)
         brightness(105%);
     }
+
+    .poke--template--wrapper__inside:hover {
+      @extend .poke--template--wrapper__inside__active;
+    }
+
+    .poke--template--wrapper__inside__active {
+      box-shadow: inset 0 0 150px #02185e;
+      background-color: #010e38;
+    }
+  }
+  .poke--template--wrapper:hover {
+    @extend .poke--template--wrapper__active;
+  }
+  .poke--template--wrapper__active {
+    box-shadow: 0 0 40px #02185e;
+  }
+}
+
+.img--anim {
+  animation: pokechoose forwards 0.8s linear;
+  filter: drop-shadow(0 0 18px rgb(153, 220, 20)) grayscale(0%) brightness(105%);
+}
+
+@keyframes pokechoose {
+  0% {
+    filter: drop-shadow(0 0 8px rgb(153, 220, 20)) grayscale(0%) brightness(55%);
+  }
+  1% {
+    filter: drop-shadow(0 0 208px rgb(153, 220, 20)) grayscale(0%)
+      brightness(55%);
+  }
+  30% {
+    filter: drop-shadow(0 0 8px rgb(153, 220, 20)) grayscale(0%)
+      brightness(105%);
+  }
+  31% {
+    filter: drop-shadow(0 0 208px rgb(153, 220, 20)) grayscale(0%)
+      brightness(55%);
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgb(153, 220, 20)) grayscale(0%)
+      brightness(105%);
+  }
+  51% {
+    filter: drop-shadow(0 0 208px rgb(153, 220, 20)) grayscale(0%)
+      brightness(55%);
+  }
+  60% {
+    filter: drop-shadow(0 0 8px rgb(153, 220, 20)) grayscale(0%)
+      brightness(105%);
+  }
+  61% {
+    filter: drop-shadow(0 0 18px rgb(255, 255, 255)) grayscale(0%)
+      brightness(155%);
+  }
+  90% {
+    filter: drop-shadow(0 0 208px rgb(255, 255, 255)) grayscale(0%)
+      brightness(155%);
+  }
+  91% {
+    filter: drop-shadow(0 0 8px rgb(153, 220, 20)) grayscale(0%)
+      brightness(125%);
+  }
+  99% {
+    filter: drop-shadow(0 0 18px rgb(153, 220, 20)) grayscale(0%)
+      brightness(105%);
   }
 }

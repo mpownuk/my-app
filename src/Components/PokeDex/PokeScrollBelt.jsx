@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { Button } from "./Button";
 import "./PokeScrollBelt.scss";
 
 export const PokeScrollBelt = ({ pokeList, pictures, func }) => {
@@ -8,16 +7,16 @@ export const PokeScrollBelt = ({ pokeList, pictures, func }) => {
 
   const movableEl = useRef(null);
 
-  const moveBar = (item, distance, step) => {
-    let breakPoint = 0;
-    const movement = setInterval(() => {
-      item.scrollLeft += step;
-      breakPoint += Math.abs(step);
-      if (breakPoint >= distance) {
-        clearInterval(movement);
-      }
-    }, 5);
-  };
+  // const moveBar = (item, distance, step) => {
+  //   let breakPoint = 0;
+  //   const movement = setInterval(() => {
+  //     item.scrollLeft += step;
+  //     breakPoint += Math.abs(step);
+  //     if (breakPoint >= distance) {
+  //       clearInterval(movement);
+  //     }
+  //   }, 5);
+  // };
 
   const mouseDownHandler = (event) => {
     setMouseIsDown(true);
@@ -38,13 +37,13 @@ export const PokeScrollBelt = ({ pokeList, pictures, func }) => {
 
   return (
     <div className="poke--scrollbelt">
-      <Button
+      {/* <Button
         className="hidden--button"
         value={"<"}
         onClick={() => {
           moveBar(movableEl.current, 250, -10);
         }}
-      />
+      /> */}
       <div
         className="poke--scrollbelt__elements"
         ref={movableEl}
@@ -75,11 +74,11 @@ export const PokeScrollBelt = ({ pokeList, pictures, func }) => {
           );
         })}
       </div>
-      <Button
+      {/* <Button
         className="hidden--button"
         value={">"}
         onClick={() => moveBar(movableEl.current, 250, 10)}
-      />
+      /> */}
     </div>
   );
 };
