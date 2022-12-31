@@ -4,7 +4,6 @@ import { PokeSubmit } from "./Submit";
 import { PokeTemplate } from "./PokeTemplate";
 import { PokeScrollBelt } from "./PokeScrollBelt";
 import { Button } from "react-bootstrap";
-import { Anim } from "./Anim";
 
 import "./PokeDex.scss";
 
@@ -135,7 +134,6 @@ export function PokeDex({ style }) {
   return (
     <div style={style}>
       <div className="PokeDex">
-        {playAnim && <Anim />}
         <form onSubmit={handleSubmit}>
           <PokeInput onChange={handleChange} />
           <PokeSubmit input={input} />
@@ -145,6 +143,7 @@ export function PokeDex({ style }) {
             onClick={choosePokemonToBattle}
             name={pokeName}
             image={pokeImage}
+            playAnim={playAnim}
           />
           <Button onClick={getRandomPokemon}>..or catch random one!</Button>
         </div>

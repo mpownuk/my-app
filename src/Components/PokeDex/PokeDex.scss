@@ -6,34 +6,3 @@
   position: relative;
   overflow: hidden;
 }
-.anim {
-  animation: pokechoose forwards 2s linear;
-  position: absolute;
-  top: -100%;
-  width: 100vw;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100%;
-  z-index: 3;
-  background-color: #fff;
-}
-
-@keyframes pokechoose {
-  20% {
-    top: 100%;
-  }
-  30% {
-    top: 0;
-    left: -100%;
-  }
-  40% {
-    left: 0;
-  }
-  50% {
-    top: 0;
-    left: 100%;
-  }
-  60% {
-    top: 0;
-  }
-}

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PokeTemplate.scss";
+import { Anim } from "./Anim";
 
-export const PokeTemplate = ({ name, image, className, onClick }) => {
-  const [isBig, setIsBig] = React.useState(false);
+export const PokeTemplate = ({ name, image, className, onClick, playAnim }) => {
+  const [isBig, setIsBig] = useState(false);
 
   const resizePokemon = () => {
     setIsBig((prevB) => !prevB);
@@ -15,11 +16,22 @@ export const PokeTemplate = ({ name, image, className, onClick }) => {
         onMouseEnter={resizePokemon}
         onMouseLeave={resizePokemon}
         onClick={onClick}
-        className="poke--template--wrapper"
+        className={`poke--template--wrapper ${
+          playAnim && "poke--template--wrapper__active"
+        }`}
       >
-        <div className="poke--template--wrapper__inside">
+        {/* {playAnim && <Anim />} */}
+
+        <div
+          className={`poke--template--wrapper__inside ${
+            playAnim ? "poke--template--wrapper__inside__active " : ""
+          }`}
+        >
           <img
-            className={`${isBig ? "img--big" : ""}`}
+            className={`
+            ${playAnim ? "img--anim" : ""}
+            ${playAnim || isBig ? "img--big__active" : ""}
+             `}
             src={image}
             alt=" "
           ></img>
