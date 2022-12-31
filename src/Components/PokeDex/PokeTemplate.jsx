@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./PokeTemplate.scss";
-import { Anim } from "./Anim";
 
 export const PokeTemplate = ({ name, image, className, onClick, playAnim }) => {
   const [isBig, setIsBig] = useState(false);
