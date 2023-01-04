@@ -3,7 +3,7 @@ import { PokeInput } from "./Input";
 import { PokeSubmit } from "./Submit";
 import { PokeTemplate } from "./PokeTemplate";
 import { PokeScrollBelt } from "./PokeScrollBelt";
-import { Button } from "react-bootstrap";
+import { Button } from "./Button";
 
 import "./PokeDex.scss";
 
@@ -25,23 +25,28 @@ export function PokeDex({ style }) {
         let pokeCount = data.count;
         let randomNumber = Math.ceil(Math.random() * pokeCount);
         let randomPokeUrl = data.results[randomNumber].url;
+        console.log(randomPokeUrl);
         fetch(randomPokeUrl)
           .then((randomRes) => randomRes.json())
           .then((data) => {
             handlePokeData(data);
             setFlag(true);
-
-            console.log(
-              "input ",
-              input,
-              "submit ",
-              submit,
-              "pokename ",
-              pokeName
-            );
           });
       });
   };
+
+  useEffect(() => {
+    console.log(
+      "input: ",
+      input,
+      "submit: ",
+      submit,
+      "pokename: ",
+      pokeName,
+      "current pokemon: ",
+      currentPokemon
+    );
+  }, [pokeName, currentPokemon]);
 
   const handlePokeData = (data) => {
     let name = data.species.name.toUpperCase();
@@ -73,7 +78,7 @@ export function PokeDex({ style }) {
         }
       })
       .then((data) => {
-        console.log(data);
+        console.log("from handlepokeAPI:", data);
         handlePokeData(data);
       });
   };
@@ -132,24 +137,24 @@ export function PokeDex({ style }) {
   };
 
   return (
-    <div style={style}>
+    <div>
       <div className="PokeDex">
         <form onSubmit={handleSubmit}>
           <PokeInput onChange={handleChange} />
           <PokeSubmit input={input} />
         </form>
-        <div className="flexBox flexColumn">
+        <div>
           <PokeTemplate
             onClick={choosePokemonToBattle}
             name={pokeName}
             image={pokeImage}
             playAnim={playAnim}
           />
-          <Button onClick={getRandomPokemon}>..or catch random one!</Button>
         </div>
+        <Button onClick={getRandomPokemon} value="..or catch random one!" />
         <div>
-          <Button onClick={showPreviousPokemon} value={"previous"} />
-          <Button onClick={showNextPokemon} value={"Next"} />
+          <Button onClick={showPreviousPokemon} value="previous" />
+          <Button onClick={showNextPokemon} value="Next" />
         </div>
         <PokeScrollBelt
           pokeList={pokeList}
