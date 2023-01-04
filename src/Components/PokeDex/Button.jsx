@@ -1,5 +1,5 @@
+import "./Button.scss";
+
 export const Button = (props) => {
-    return (
-      <button className={props.className} onClick={props.onClick} >{props.value}</button>
-    )
-  }
+  return <button onClick={props.onClick}>{props.value}</button>;
+};
