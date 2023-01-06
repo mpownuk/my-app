@@ -1,132 +1,111 @@
 import { useState, useEffect } from "react";
 import { PokeInput } from "./Input";
-import { PokeSubmit } from "./Submit";
 import { PokeTemplate } from "./PokeTemplate";
 import { PokeScrollBelt } from "./PokeScrollBelt";
 import { Button } from "./Button";
 
 import "./PokeDex.scss";
 
-export function PokeDex({ style }) {
-  const [input, setInput] = useState("");
-  const [submit, setSubmit] = useState("pikachu");
-  const [pokeName, setPokeName] = useState("pikachu");
-  const [pokeImage, setPokeImage] = useState("");
-  const [pokePictures, setPokePictures] = useState([]);
-  const [pokeList, setPokeList] = useState([]);
-  const [currentPokemon, setCurrentPokemon] = useState(0);
-  const [flag, setFlag] = useState(true);
+export function PokeDex({ pokemonData, style }) {
+  const [chosenPokemon, setChosenPokemon] = useState({
+    name: "pikachu",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+  });
+  const [pokeList, setPokeList] = useState([chosenPokemon]);
   const [playAnim, setPlayAnim] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [currentPokemon, setCurrentPokemon] = useState(pokeList.length);
+  const [allowAddToPokelist, setAllowAddToPokelist] = useState(false);
+
+  console.log(
+    // "data: ",
+    // pokemonData,
+    // "pokelist: ",
+    // pokeList,
+    // "chosen pokemon: ",
+    // chosenPokemon,
+    "current pokemon: ",
+    currentPokemon,
+    "pokelist length: ",
+    pokeList.length
+  );
+
+  const choosePokemon = (data) => {
+    setChosenPokemon((prev) => ({
+      name: data.species.name,
+      image: data.sprites.other["official-artwork"].front_default,
+    }));
+  };
 
   const getRandomPokemon = () => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+    const randomNumber = Math.floor(Math.random() * pokemonData.count) + 1;
+    const randomPokemon = pokemonData.results[randomNumber].url;
+    fetch(randomPokemon)
       .then((res) => res.json())
       .then((data) => {
-        let pokeCount = data.count;
-        let randomNumber = Math.ceil(Math.random() * pokeCount);
-        let randomPokeUrl = data.results[randomNumber].url;
-        console.log(randomPokeUrl);
-        fetch(randomPokeUrl)
-          .then((randomRes) => randomRes.json())
-          .then((data) => {
-            handlePokeData(data);
-            setFlag(true);
-          });
+        setCurrentPokemon((prev) => pokeList.length);
+        setAllowAddToPokelist((prev) => true);
+        choosePokemon(data);
       });
   };
 
   useEffect(() => {
-    console.log(
-      "input: ",
-      input,
-      "submit: ",
-      submit,
-      "pokename: ",
-      pokeName,
-      "current pokemon: ",
-      currentPokemon
-    );
-  }, [pokeName, currentPokemon]);
-
-  const handlePokeData = (data) => {
-    let name = data.species.name.toUpperCase();
-    let image = data.sprites.other["official-artwork"].front_default;
-    let listOfPokes = pokeList.slice();
-    let picsOfPokes = pokePictures.slice();
-    if (flag) {
-      listOfPokes.push(data.species.name);
-      picsOfPokes.push(image);
-      setPokePictures(picsOfPokes);
-      setCurrentPokemon(listOfPokes.length);
+    if (allowAddToPokelist) {
+      setPokeList((prev) => [...prev, chosenPokemon]);
+      setAllowAddToPokelist((prev) => false);
     }
-    setPokeName(name);
-    setPokeImage(image);
-    setPokeList(listOfPokes);
-    setFlag(true);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chosenPokemon]);
 
   const handlePokeApi = () => {
-    if (!submit) return;
-    let pokemon = `https://pokeapi.co/api/v2/pokemon/${submit}`.toLowerCase();
+    const pokemon =
+      `https://pokeapi.co/api/v2/pokemon/${inputValue}`.toLowerCase();
     fetch(pokemon)
       .then((res) => {
         if (res.ok) {
           return res.json();
         } else {
-          setPokeName("There is no such Pokemon!");
+          console.log("erwtgbhwedhb");
           return;
         }
       })
       .then((data) => {
-        console.log("from handlepokeAPI:", data);
-        handlePokeData(data);
+        setCurrentPokemon((prev) => pokeList.length);
+        setAllowAddToPokelist((prev) => true);
+        choosePokemon(data);
       });
   };
 
-  const displayPokeFromContainer = (arg, index) => {
-    setSubmit(arg);
-    setCurrentPokemon(index + 1);
-    setFlag(false);
-    console.log(arg);
-  };
-
   const showPreviousPokemon = () => {
-    if (currentPokemon <= 1) {
+    if (currentPokemon <= 0) {
       return;
     } else {
-      setCurrentPokemon(currentPokemon - 1);
-      setSubmit(pokeList[currentPokemon - 2]);
-      setFlag(false);
+      setChosenPokemon((prev) => pokeList[currentPokemon - 1]);
+      setCurrentPokemon((prev) => prev - 1);
     }
   };
 
   const showNextPokemon = () => {
-    if (currentPokemon >= pokeList.length) {
+    if (currentPokemon >= pokeList.length - 1) {
       return;
     } else {
-      setCurrentPokemon(currentPokemon + 1);
-      setSubmit(pokeList[currentPokemon]);
-      setFlag(false);
+      setChosenPokemon((prev) => pokeList[currentPokemon + 1]);
+      setCurrentPokemon((prev) => prev + 1);
     }
   };
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
+  const inputChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmit(input);
-    setFlag(true);
+    handlePokeApi();
   };
 
-  // eslint-disable-next-line
-  useEffect(handlePokeApi, [submit]);
-
-  // useEffect(()=>{console.log(pokeList.length, currentPokemon, pokeList, submit, pokeImage)})
-
   const choosePokemonToBattle = () => {
-    localStorage.setItem("chosenPokemon", pokeName);
+    localStorage.setItem("chosenPokemon", JSON.stringify(chosenPokemon));
     const handleAnim = () => {
       setPlayAnim((prevA) => true);
       setTimeout(() => {
@@ -136,30 +115,40 @@ export function PokeDex({ style }) {
     handleAnim();
   };
 
+  const displayPokemonFromScrollBelt = (index) => {
+    setChosenPokemon((prev) => pokeList[index]);
+    setCurrentPokemon((prev) => index);
+
+    console.log(index);
+  };
+
   return (
-    <div>
+    <div style={style}>
       <div className="PokeDex">
         <form onSubmit={handleSubmit}>
-          <PokeInput onChange={handleChange} />
-          <PokeSubmit input={input} />
+          <PokeInput handleChange={inputChange} />
+          <Button type="submit" value="Search!" />
         </form>
         <div>
           <PokeTemplate
-            onClick={choosePokemonToBattle}
-            name={pokeName}
-            image={pokeImage}
+            name={chosenPokemon.name.toUpperCase()}
+            image={chosenPokemon.image}
+            handleClick={choosePokemonToBattle}
             playAnim={playAnim}
           />
         </div>
-        <Button onClick={getRandomPokemon} value="..or catch random one!" />
-        <div>
-          <Button onClick={showPreviousPokemon} value="previous" />
-          <Button onClick={showNextPokemon} value="Next" />
+        <div className="PokeDex--buttons--container">
+          <Button
+            className="PokeDex--buttons--container__random--btn"
+            onClick={getRandomPokemon}
+            value="..or catch random one!"
+          />
+          <Button value="previous" onClick={showPreviousPokemon} />
+          <Button value="Next" onClick={showNextPokemon} />
         </div>
         <PokeScrollBelt
           pokeList={pokeList}
-          pictures={pokePictures}
-          func={displayPokeFromContainer}
+          handleClick={(index) => displayPokemonFromScrollBelt(index)}
         />
       </div>
     </div>
