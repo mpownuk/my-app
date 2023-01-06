@@ -63,18 +63,19 @@ export function PokeDex({ pokemonData, style }) {
       `https://pokeapi.co/api/v2/pokemon/${inputValue}`.toLowerCase();
     fetch(pokemon)
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log("erwtgbhwedhb");
-          return;
-        }
+        return res.json();
       })
       .then((data) => {
         setCurrentPokemon((prev) => pokeList.length);
         setAllowAddToPokelist((prev) => true);
         choosePokemon(data);
-      });
+      })
+      .catch(
+        setChosenPokemon((prev) => ({
+          name: "There is not such Pokemon!",
+          image: "",
+        }))
+      );
   };
 
   const showPreviousPokemon = () => {
