@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./PokeScrollBelt.scss";
 
-export const PokeScrollBelt = ({ pokeList, pictures, func }) => {
+export const PokeScrollBelt = ({ pokeList, handleClick }) => {
   const [mouseEntry, setMouseEntry] = useState(0);
   const [mouseIsDown, setMouseIsDown] = useState(false);
 
@@ -56,21 +56,17 @@ export const PokeScrollBelt = ({ pokeList, pictures, func }) => {
       >
         {pokeList.map((poke, idx) => {
           return (
-            <span className="poke--scrollbelt__item" key={poke}>
+            <div className="poke--scrollbelt__item" key={poke.name}>
               <img
                 className="poke--scrollbelt__icon"
-                src={`${pictures[idx]}`}
+                src={`${poke.image}`}
                 alt=" "
               ></img>
               <p>Select:</p>
-              <button
-                onClick={() => {
-                  func(poke, idx);
-                }}
-              >
-                {poke.toUpperCase()}
+              <button onClick={() => handleClick(idx)}>
+                {poke.name.toUpperCase()}
               </button>
-            </span>
+            </div>
           );
         })}
       </div>

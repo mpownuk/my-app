@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PokeTemplate.scss";
 
-export const PokeTemplate = ({ name, image, className, onClick, playAnim }) => {
+export const PokeTemplate = ({ name, image, handleClick, playAnim }) => {
   const [isBig, setIsBig] = useState(false);
 
   const resizePokemon = () => {
@@ -14,7 +14,7 @@ export const PokeTemplate = ({ name, image, className, onClick, playAnim }) => {
       <div
         onMouseEnter={resizePokemon}
         onMouseLeave={resizePokemon}
-        onClick={onClick}
+        onClick={handleClick}
         className={`poke--template--wrapper ${
           playAnim && "poke--template--wrapper__active"
         }`}

@@ -1,5 +1,13 @@
 import "./Button.scss";
 
 export const Button = (props) => {
-  return <button onClick={props.onClick}>{props.value}</button>;
+  return (
+    <button
+      className={props.className}
+      onClick={props.onClick}
+      onSubmit={props.onSubmit}
+    >
+      {props.value}
+    </button>
+  );
 };

@@ -2,9 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border-top: solid 1px #02185e;
+  padding: 1rem 0;
 
   width: 100%;
   height: auto;
+  cursor: grab;
   .poke--scrollbelt__elements {
     gap: 3rem;
     display: flex;
@@ -13,6 +16,7 @@
     overflow: hidden;
     .poke--scrollbelt__item {
       display: flex;
+      flex-shrink: 0;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;

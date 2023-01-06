@@ -1,6 +1,3 @@
 export const PokeInput = (props) => {
-    return ( 
-      <input onChange={props.onChange}></input>
-    )
-  }
-  
+  return <input onChange={props.handleChange}></input>;
+};
