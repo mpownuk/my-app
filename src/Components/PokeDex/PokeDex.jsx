@@ -47,6 +47,7 @@ export function PokeDex({ pokemonData, style }) {
         setCurrentPokemon((prev) => pokeList.length);
         setAllowAddToPokelist((prev) => true);
         choosePokemon(data);
+        console.log(randomPokemon);
       });
   };
 
