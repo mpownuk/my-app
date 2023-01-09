@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import ReactTouchEvents from "react-touch-events";
 import "../../styles/PokeDex/PokeScrollBelt.scss";
 
-import { Button } from "../Button";
-
 export const PokeScrollBelt = ({ pokeList, handleClick }) => {
   const [mouseEntry, setMouseEntry] = useState(0);
   const [mouseIsDown, setMouseIsDown] = useState(false);
@@ -36,6 +34,9 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
       let offset = mouseEntry;
       movableEl.current.scrollLeft = offset - event.clientX;
       console.log(event.clientX, mouseEntry);
+      console.log("move: ", event.clientX);
+      setButtonValue((prev) => event.clientX);
+
     }
   };
 
@@ -43,18 +44,6 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
     setButtonValue((prev) => "you have taped me");
   };
 
-  const handleSwipe = (direction) => {
-    switch (direction) {
-      case "top":
-      case "bottom":
-      case "left":
-      case "right":
-        setButtonValue((prev) => `you swiped ${direction}`);
-        break;
-      default:
-        setButtonValue((prev) => "NULL");
-    }
-  };
 
   return (
     <div className="poke--scrollbelt">
