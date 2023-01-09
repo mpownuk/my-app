@@ -5,7 +5,7 @@ import "../../styles/PokeDex/PokeScrollBelt.scss";
 export const PokeScrollBelt = ({ pokeList, handleClick }) => {
   const [mouseEntry, setMouseEntry] = useState(0);
   const [mouseIsDown, setMouseIsDown] = useState(false);
-  const [buttonValue, setButtonValue] = useState("nothing happend jet");
+  const [buttonValue, setButtonValue] = useState("nothing happend yet");
 
   const movableEl = useRef(null);
 
@@ -39,12 +39,26 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
     }
   };
 
+  const touchDownHandler = (event) => {
+    handleTap();
+    setMouseIsDown((prev) => true);
+    setMouseEntry(
+      (prev) => event.changedTouches[0].clientX + movableEl.current.scrollLeft
+    );
+  };
+
+  const contMoveOnTouch = (event) => {
+    let offset = mouseEntry;
+    movableEl.current.scrollLeft = offset - event.changedTouches[0].clientX;
+    setButtonValue((prev) => event.changedTouches[0].clientX);
+  };
+
   const handleTap = () => {
     setButtonValue((prev) => "you have taped me");
   };
 
   return (
-    <ReactTouchEvents onTap={handleTap} onSwipe={contMove}>
+    <ReactTouchEvents>
       <div className="poke--scrollbelt">
         {/* <Button
         className="hidden--button"
@@ -63,9 +77,9 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
           onMouseDown={mouseDownHandler}
           onMouseUp={mouseUpHandler}
           onMouseMove={contMove}
-          // onTouchStart={() => console.log("touch started")}
-          // onTouchEnd={() => console.log("touch ended")}
-          // onTouchMove={() => console.log("touch is running")}
+          onTouchStart={touchDownHandler}
+          onTouchEnd={mouseUpHandler}
+          onTouchMove={contMoveOnTouch}
         >
           {pokeList.map((poke, idx) => {
             return (
