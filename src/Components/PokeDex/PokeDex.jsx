@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { PokeInput } from "./Input";
+import { PokeInput } from "../Input";
 import { PokeTemplate } from "./PokeTemplate";
 import { PokeScrollBelt } from "./PokeScrollBelt";
-import { Button } from "./Button";
+import { Button } from "../Button";
 
-import "./PokeDex.scss";
+import "../../styles/PokeDex/PokeDex.scss";
 
 export function PokeDex({ pokemonData, style }) {
   const [chosenPokemon, setChosenPokemon] = useState({
@@ -17,6 +17,14 @@ export function PokeDex({ pokemonData, style }) {
   const [inputValue, setInputValue] = useState("");
   const [currentPokemon, setCurrentPokemon] = useState(pokeList.length);
   const [allowAddToPokelist, setAllowAddToPokelist] = useState(false);
+
+  useEffect(() => {
+    if (allowAddToPokelist) {
+      setPokeList((prev) => [...prev, chosenPokemon]);
+      setAllowAddToPokelist((prev) => false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chosenPokemon]);
 
   console.log(
     // "data: ",
@@ -50,14 +58,6 @@ export function PokeDex({ pokemonData, style }) {
         console.log(randomPokemon);
       });
   };
-
-  useEffect(() => {
-    if (allowAddToPokelist) {
-      setPokeList((prev) => [...prev, chosenPokemon]);
-      setAllowAddToPokelist((prev) => false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chosenPokemon]);
 
   const handlePokeApi = () => {
     const pokemon =
