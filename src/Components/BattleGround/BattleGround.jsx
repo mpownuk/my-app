@@ -1,7 +1,7 @@
 import React from "react";
 import { UserPokemon } from "./UserPokemon";
 import { EnemyPokemon } from "./EnemyPokemon";
-import "./BattleGround.css";
+import "../../styles/BattleGround/BattleGround.css";
 
 export const BattleGround = ({ style, battlePoke }) => {
   const parsedBattlePoke = JSON.parse(battlePoke);

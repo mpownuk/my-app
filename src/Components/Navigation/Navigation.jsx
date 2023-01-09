@@ -1,6 +1,6 @@
 import React from "react";
 import { NavItem } from "../Navigation/NavItem";
-import "./Navigation.scss";
+import "../../styles/Navigation/Navigation.scss";
 
 export function Navigation({ onClick, value, setPoke }) {
   return (

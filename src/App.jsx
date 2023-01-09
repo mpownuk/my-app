@@ -4,7 +4,7 @@ import { PokeDex } from "./Components/PokeDex/PokeDex";
 import { BattleGround } from "./Components/BattleGround/BattleGround";
 import { Stats } from "./Components/Stats/Stats";
 
-import "./App.scss";
+import "./styles/App.scss";
 
 export function App() {
   const appComponentsNames = ["PokeDex", "BattleGround", "Stats"];

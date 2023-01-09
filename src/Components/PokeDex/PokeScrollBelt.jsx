@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import "./PokeScrollBelt.scss";
+import "../../styles/PokeDex/PokeScrollBelt.scss";
 
 export const PokeScrollBelt = ({ pokeList, handleClick }) => {
   const [mouseEntry, setMouseEntry] = useState(0);
@@ -19,12 +19,12 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
   // };
 
   const mouseDownHandler = (event) => {
-    setMouseIsDown(true);
-    setMouseEntry(event.clientX + movableEl.current.scrollLeft);
+    setMouseIsDown((prev) => true);
+    setMouseEntry((prev) => event.clientX + movableEl.current.scrollLeft);
   };
 
   const mouseUpHandler = () => {
-    setMouseIsDown(false);
+    setMouseIsDown((prev) => false);
   };
 
   const contMove = (event) => {
@@ -50,9 +50,9 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
         onMouseDown={mouseDownHandler}
         onMouseUp={mouseUpHandler}
         onMouseMove={contMove}
-        onTouchStart={mouseDownHandler}
-        onTouchEnd={mouseUpHandler}
-        onTouchMove={contMove}
+        // onTouchStart={mouseDownHandler}
+        // onTouchEnd={mouseUpHandler}
+        // onTouchMove={contMove}
       >
         {pokeList.map((poke, idx) => {
           return (
