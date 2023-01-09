@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
+import ReactTouchEvents from "react-touch-events";
 import "../../styles/PokeDex/PokeScrollBelt.scss";
+
+import { Button } from "../Button";
 
 export const PokeScrollBelt = ({ pokeList, handleClick }) => {
   const [mouseEntry, setMouseEntry] = useState(0);
   const [mouseIsDown, setMouseIsDown] = useState(false);
+  const [buttonValue, setButtonValue] = useState("nothing happend jet");
 
   const movableEl = useRef(null);
 
@@ -35,6 +39,23 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
     }
   };
 
+  const handleTap = () => {
+    setButtonValue((prev) => "you have taped me");
+  };
+
+  const handleSwipe = (direction) => {
+    switch (direction) {
+      case "top":
+      case "bottom":
+      case "left":
+      case "right":
+        setButtonValue((prev) => `you swiped ${direction}`);
+        break;
+      default:
+        setButtonValue((prev) => "NULL");
+    }
+  };
+
   return (
     <div className="poke--scrollbelt">
       {/* <Button
@@ -44,15 +65,27 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
           moveBar(movableEl.current, 250, -10);
         }}
       /> */}
+      <ReactTouchEvents onTap={handleTap} onSwipe={handleSwipe}>
+        <button
+          style={{ padding: "3rem" }}
+        >{`react touch events test: ${buttonValue}`}</button>
+      </ReactTouchEvents>
+
+      <Button
+        style={{ padding: "3rem" }}
+        onTap={handleTap}
+        onSwipe={handleSwipe}
+        value={`custom button test: ${buttonValue}`}
+      ></Button>
       <div
         className="poke--scrollbelt__elements"
         ref={movableEl}
         onMouseDown={mouseDownHandler}
         onMouseUp={mouseUpHandler}
         onMouseMove={contMove}
-        // onTouchStart={mouseDownHandler}
-        // onTouchEnd={mouseUpHandler}
-        // onTouchMove={contMove}
+        // onTouchStart={() => console.log("touch started")}
+        // onTouchEnd={() => console.log("touch ended")}
+        // onTouchMove={() => console.log("touch is running")}
       >
         {pokeList.map((poke, idx) => {
           return (
