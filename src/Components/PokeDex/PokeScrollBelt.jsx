@@ -36,6 +36,7 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
       let offset = mouseEntry;
       movableEl.current.scrollLeft = offset - event.clientX;
       console.log(event.clientX, mouseEntry);
+      console.log("move: ", event.clientX);
     }
   };
 
@@ -43,71 +44,56 @@ export const PokeScrollBelt = ({ pokeList, handleClick }) => {
     setButtonValue((prev) => "you have taped me");
   };
 
-  const handleSwipe = (direction) => {
-    switch (direction) {
-      case "top":
-      case "bottom":
-      case "left":
-      case "right":
-        setButtonValue((prev) => `you swiped ${direction}`);
-        break;
-      default:
-        setButtonValue((prev) => "NULL");
-    }
-  };
+  // const handleSwipe = (direction) => {
+  //   setButtonValue((prev) => direction.clientX);
+  // };
 
   return (
-    <div className="poke--scrollbelt">
-      {/* <Button
+    <ReactTouchEvents onTap={handleTap} onSwipe={contMove}>
+      <div className="poke--scrollbelt">
+        {/* <Button
         className="hidden--button"
         value={"<"}
         onClick={() => {
           moveBar(movableEl.current, 250, -10);
         }}
       /> */}
-      <ReactTouchEvents onTap={handleTap} onSwipe={handleSwipe}>
-        <button
-          style={{ padding: "3rem" }}
-        >{`react touch events test: ${buttonValue}`}</button>
-      </ReactTouchEvents>
+        <p style={{ color: "white" }}>
+          {`react touch events test: ${buttonValue}`}
+        </p>
 
-      <Button
-        style={{ padding: "3rem" }}
-        onTap={handleTap}
-        onSwipe={handleSwipe}
-        value={`custom button test: ${buttonValue}`}
-      ></Button>
-      <div
-        className="poke--scrollbelt__elements"
-        ref={movableEl}
-        onMouseDown={mouseDownHandler}
-        onMouseUp={mouseUpHandler}
-        onMouseMove={contMove}
-        // onTouchStart={() => console.log("touch started")}
-        // onTouchEnd={() => console.log("touch ended")}
-        // onTouchMove={() => console.log("touch is running")}
-      >
-        {pokeList.map((poke, idx) => {
-          return (
-            <div className="poke--scrollbelt__item" key={poke.name}>
-              <img
-                className="poke--scrollbelt__icon"
-                src={`${poke.image}`}
-                alt=" "
-              ></img>
-              <p>Select:</p>
-              <button onClick={() => handleClick(idx)}>
-                {poke.name.toUpperCase()}
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      {/* <Button
+        <div
+          className="poke--scrollbelt__elements"
+          ref={movableEl}
+          onMouseDown={mouseDownHandler}
+          onMouseUp={mouseUpHandler}
+          onMouseMove={contMove}
+          // onTouchStart={() => console.log("touch started")}
+          // onTouchEnd={() => console.log("touch ended")}
+          // onTouchMove={() => console.log("touch is running")}
+        >
+          {pokeList.map((poke, idx) => {
+            return (
+              <div className="poke--scrollbelt__item" key={poke.name}>
+                <img
+                  className="poke--scrollbelt__icon"
+                  src={`${poke.image}`}
+                  alt=" "
+                ></img>
+                <p>Select:</p>
+                <button onClick={() => handleClick(idx)}>
+                  {poke.name.toUpperCase()}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        {/* <Button
         className="hidden--button"
         value={">"}
         onClick={() => moveBar(movableEl.current, 250, 10)}
       /> */}
-    </div>
+      </div>
+    </ReactTouchEvents>
   );
 };
