@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { PokeInput } from "../Input";
 import { PokeTemplate } from "./PokeTemplate";
 import { PokeScrollBelt } from "./PokeScrollBelt";
 import { Button } from "../Button";
+import { SearchForm } from "./SearchForm";
 
 import "../../styles/PokeDex/PokeDex.scss";
 
@@ -97,7 +97,7 @@ export function PokeDex({ pokemonData, style }) {
     }
   };
 
-  const inputChange = (e) => {
+  const handleChange = (e) => {
     setInputValue(e.target.value);
   };
 
@@ -127,13 +127,15 @@ export function PokeDex({ pokemonData, style }) {
   return (
     <div style={style}>
       <div className="PokeDex">
-        <form onSubmit={handleSubmit}>
-          <PokeInput handleChange={inputChange} />
-          <Button type="submit" value="Search!" />
-        </form>
+        <SearchForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          pokemonData={pokemonData}
+          inputValue={inputValue}
+        />
         <div>
           <PokeTemplate
-            name={chosenPokemon.name.toUpperCase()}
+            name={chosenPokemon.name}
             image={chosenPokemon.image}
             handleClick={choosePokemonToBattle}
             playAnim={playAnim}
