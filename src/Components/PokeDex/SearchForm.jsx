@@ -4,52 +4,59 @@ import { Button } from "../Button";
 import "../../styles/PokeDex/SearchForm.scss";
 
 export const SearchForm = (props) => {
-  const [datafromAPI, setDataFropmAPI] = useState("");
+  const [datafromAPI, setDataFropmAPI] = useState([]);
   const [listedPokemons, setListedPokemons] = useState(null);
-  // const [autocompleteList, setAutocompleteList] = useState("")
+  const [autocompleteList, setAutocompleteList] = useState([]);
+  // const [renderAutocompleteList, setRenderAutocompleteList] = useState(false);
 
   useEffect(() => {
     setDataFropmAPI((prev) => props.pokemonData);
   }, [props.pokemonData]);
 
   useEffect(() => {
-    if (!datafromAPI) {
-      console.log("NO DATA!");
-      return;
-    } else {
+    try {
       setListedPokemons(
         datafromAPI.results
           .map((object) => object.name)
           .sort((a, b) => {
-            const fa = a;
-            const fb = b;
-            return fa.localeCompare(fb);
+            return a.localeCompare(b);
           })
       );
+    } catch (err) {
+      console.log(err);
     }
   }, [datafromAPI]);
 
-  const autocompleteList = listedPokemons
-    ? listedPokemons.map((listItem) => {
-        return listItem.includes(props.inputValue) ? (
-          <Button
-            value={listItem}
-            className="SearchForm--autocomplete__item"
-            onClick={(e) => {
-              console.log(e.target.value);
-              props.handleChange(e);
-            }}
-          />
-        ) : null;
-      })
-    : "no data";
+  const handleAutocomplete = () => {
+    setAutocompleteList((prev) => {
+      return listedPokemons.map((listItem) => {
+        if (listItem.includes(props.inputValue.toLowerCase())) {
+          return (
+            <div
+              key={listItem}
+              className="SearchForm--autocomplete__item"
+              onClick={() => props.autocompleteInputValue(listItem)}
+            >
+              {listItem}
+            </div>
+          );
+        }
+        return null;
+      });
+    });
+  };
 
-  // console.log(autocompleteList);
+  console.log("input value from searchform: ", props.inputValue);
 
   return (
     <div className="SearchForm">
       <form onSubmit={props.handleSubmit}>
-        <PokeInput handleChange={props.handleChange} />
+        <PokeInput
+          handleChange={props.handleChange}
+          handleKeyUp={handleAutocomplete}
+          disabled={listedPokemons ? false : true}
+          value={props.inputValue}
+        />
         <Button type="submit" value="Search!" />
       </form>
       {props.inputValue && (

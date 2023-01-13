@@ -18,11 +18,9 @@
       box-shadow: none;
       text-align: start;
     }
-    .SearchForm--autocomplete__item:nth-child(odd) {
-      background-color: gray;
-    }
-    .SearchForm--autocomplete__item:nth-child(even) {
-      background-color: lightgray;
+    .SearchForm--autocomplete__item:hover {
+      cursor: pointer;
+      background-color: #ccd1df;
     }
   }
 }
