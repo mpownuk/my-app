@@ -26,19 +26,6 @@ export function PokeDex({ pokemonData, style }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenPokemon]);
 
-  console.log(
-    // "data: ",
-    // pokemonData,
-    // "pokelist: ",
-    // pokeList,
-    // "chosen pokemon: ",
-    // chosenPokemon,
-    "current pokemon: ",
-    currentPokemon,
-    "pokelist length: ",
-    pokeList.length
-  );
-
   const choosePokemon = (data) => {
     setChosenPokemon((prev) => ({
       name: data.species.name,
@@ -97,9 +84,16 @@ export function PokeDex({ pokemonData, style }) {
     }
   };
 
+  //autocomplete elem does not have value attribute. why?
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    setInputValue((prev) => e.target.value);
   };
+
+  const autocompleteInputValue = (value) => {
+    setInputValue((prev) => value);
+  };
+
+  console.log("input value from pokedex: ", inputValue);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -120,8 +114,6 @@ export function PokeDex({ pokemonData, style }) {
   const displayPokemonFromScrollBelt = (index) => {
     setChosenPokemon((prev) => pokeList[index]);
     setCurrentPokemon((prev) => index);
-
-    console.log(index);
   };
 
   return (
@@ -132,6 +124,7 @@ export function PokeDex({ pokemonData, style }) {
           handleSubmit={handleSubmit}
           pokemonData={pokemonData}
           inputValue={inputValue}
+          autocompleteInputValue={autocompleteInputValue}
         />
         <div>
           <PokeTemplate
