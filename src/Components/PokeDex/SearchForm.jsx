@@ -7,7 +7,7 @@ export const SearchForm = (props) => {
   const [datafromAPI, setDataFropmAPI] = useState([]);
   const [listedPokemons, setListedPokemons] = useState(null);
   const [autocompleteList, setAutocompleteList] = useState([]);
-  // const [renderAutocompleteList, setRenderAutocompleteList] = useState(false);
+  const [renderAutocompleteList, setRenderAutocompleteList] = useState(false);
 
   useEffect(() => {
     setDataFropmAPI((prev) => props.pokemonData);
@@ -27,6 +27,13 @@ export const SearchForm = (props) => {
     }
   }, [datafromAPI]);
 
+  const inputFocus = () => {
+    setRenderAutocompleteList((prev) => true);
+  };
+  // const inputBlur = () => {
+  //   setRenderAutocompleteList((prev) => false);
+  // };
+
   const handleAutocomplete = () => {
     setAutocompleteList((prev) => {
       return listedPokemons.map((listItem) => {
@@ -35,7 +42,11 @@ export const SearchForm = (props) => {
             <div
               key={listItem}
               className="SearchForm--autocomplete__item"
-              onClick={() => props.autocompleteInputValue(listItem)}
+              onClick={(e) => {
+                console.log(e.target.textContent);
+                props.autocompleteInputValue(listItem);
+                setRenderAutocompleteList((prev) => false);
+              }}
             >
               {listItem}
             </div>
@@ -52,6 +63,8 @@ export const SearchForm = (props) => {
     <div className="SearchForm">
       <form onSubmit={props.handleSubmit}>
         <PokeInput
+          inputFocus={inputFocus}
+          // inputBlur={inputBlur}
           handleChange={props.handleChange}
           handleKeyUp={handleAutocomplete}
           disabled={listedPokemons ? false : true}
@@ -59,7 +72,7 @@ export const SearchForm = (props) => {
         />
         <Button type="submit" value="Search!" />
       </form>
-      {props.inputValue && (
+      {props.inputValue && renderAutocompleteList && (
         <div className="SearchForm--autocomplete">{autocompleteList}</div>
       )}
     </div>

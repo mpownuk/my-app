@@ -128,7 +128,7 @@ export function PokeDex({ pokemonData, style }) {
         />
         <div>
           <PokeTemplate
-            name={chosenPokemon.name}
+            name={chosenPokemon.name.toLocaleUpperCase()}
             image={chosenPokemon.image}
             handleClick={choosePokemonToBattle}
             playAnim={playAnim}
