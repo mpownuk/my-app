@@ -1,7 +1,8 @@
 export const PokeInput = (props) => {
-  console.log("input value from input component: ", props.value);
   return (
     <input
+      onBlur={props.inputBlur}
+      onFocus={props.inputFocus}
       onChange={props.handleChange}
       onKeyUp={props.handleKeyUp}
       disabled={props.disabled}
