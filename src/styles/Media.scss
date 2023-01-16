@@ -1,0 +1,29 @@
+@media screen and (max-width: 26em) {
+  .poke--template {
+    .poke--template--wrapper {
+      position: relative;
+      width: 20rem;
+      height: 20rem;
+    }
+  }
+}
+
+@media screen and (min-width: 26em) {
+  .poke--template {
+    .poke--template--wrapper {
+      position: relative;
+      width: 24rem;
+      height: 24rem;
+    }
+  }
+}
+
+@media screen and (min-width: 37em) {
+  .poke--template {
+    .poke--template--wrapper {
+      position: relative;
+      width: 32rem;
+      height: 32rem;
+    }
+  }
+}
