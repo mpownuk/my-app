@@ -56,6 +56,7 @@ export function PokeDex({ pokemonData, style }) {
             name: "There is not such Pokemon!",
             image: "",
           }));
+          setInputValue((prev) => "");
         }
         return res.json();
       })
@@ -64,6 +65,7 @@ export function PokeDex({ pokemonData, style }) {
         setCurrentPokemon((prev) => pokeList.length);
         setAllowAddToPokelist((prev) => true);
         handleChoosePokemon(data);
+        setInputValue((prev) => "");
       })
       .catch(
         setChosenPokemon((prev) => ({
