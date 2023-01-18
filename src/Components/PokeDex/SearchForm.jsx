@@ -27,9 +27,6 @@ export const SearchForm = (props) => {
     }
   }, [datafromAPI]);
 
-  const inputFocus = () => {
-    setRenderAutocompleteList((prev) => true);
-  };
   // const inputBlur = () => {
   //   setRenderAutocompleteList((prev) => false);
   // };
@@ -57,16 +54,15 @@ export const SearchForm = (props) => {
     });
   };
 
-  console.log("input value from searchform: ", props.inputValue);
-
   return (
     <div className="SearchForm">
       <form onSubmit={props.handleSubmit}>
         <PokeInput
-          inputFocus={inputFocus}
+          // inputFocus={inputFocus}
           // inputBlur={inputBlur}
+          setRenderAutocompleteList={setRenderAutocompleteList}
           handleChange={props.handleChange}
-          handleKeyUp={handleAutocomplete}
+          handleAutocomplete={handleAutocomplete}
           disabled={listedPokemons ? false : true}
           value={props.inputValue}
         />
