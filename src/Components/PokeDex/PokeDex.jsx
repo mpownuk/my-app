@@ -26,7 +26,7 @@ export function PokeDex({ pokemonData, style }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenPokemon]);
 
-  const choosePokemon = (data) => {
+  const handleChoosePokemon = (data) => {
     setChosenPokemon((prev) => ({
       name: data.species.name,
       image: data.sprites.other["official-artwork"].front_default,
@@ -41,7 +41,7 @@ export function PokeDex({ pokemonData, style }) {
       .then((data) => {
         setCurrentPokemon((prev) => pokeList.length);
         setAllowAddToPokelist((prev) => true);
-        choosePokemon(data);
+        handleChoosePokemon(data);
         console.log(randomPokemon);
       });
   };
@@ -51,16 +51,23 @@ export function PokeDex({ pokemonData, style }) {
       `https://pokeapi.co/api/v2/pokemon/${inputValue}`.toLowerCase();
     fetch(pokemon)
       .then((res) => {
+        if (!res.ok) {
+          setChosenPokemon((prev) => ({
+            name: "There is not such Pokemon!",
+            image: "",
+          }));
+        }
         return res.json();
       })
       .then((data) => {
+        console.log("every time???");
         setCurrentPokemon((prev) => pokeList.length);
         setAllowAddToPokelist((prev) => true);
-        choosePokemon(data);
+        handleChoosePokemon(data);
       })
       .catch(
         setChosenPokemon((prev) => ({
-          name: "There is not such Pokemon!",
+          name: "working...",
           image: "",
         }))
       );
@@ -100,7 +107,7 @@ export function PokeDex({ pokemonData, style }) {
     handlePokeApi();
   };
 
-  const choosePokemonToBattle = () => {
+  const handleChoosePokemonToBattle = () => {
     localStorage.setItem("chosenPokemon", JSON.stringify(chosenPokemon));
     const handleAnim = () => {
       setPlayAnim((prevA) => true);
@@ -130,7 +137,7 @@ export function PokeDex({ pokemonData, style }) {
           <PokeTemplate
             name={chosenPokemon.name.toLocaleUpperCase()}
             image={chosenPokemon.image}
-            handleClick={choosePokemonToBattle}
+            handleClick={handleChoosePokemonToBattle}
             playAnim={playAnim}
           />
         </div>
