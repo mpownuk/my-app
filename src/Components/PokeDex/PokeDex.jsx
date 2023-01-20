@@ -17,6 +17,18 @@ export function PokeDex({ pokemonData, style }) {
   const [inputValue, setInputValue] = useState("");
   const [currentPokemon, setCurrentPokemon] = useState(pokeList.length);
   const [allowAddToPokelist, setAllowAddToPokelist] = useState(false);
+  const [namesFromPokeList, setNamesFromPokeList] = useState([
+    chosenPokemon.name,
+  ]);
+
+  useEffect(() => {
+    let newNames = [];
+    for (let item of pokeList) {
+      newNames.push(item.name);
+    }
+    setNamesFromPokeList((prev) => [...namesFromPokeList, chosenPokemon.name]);
+  }, [chosenPokemon]);
+  console.log(pokeList, namesFromPokeList);
 
   useEffect(() => {
     if (allowAddToPokelist) {
