@@ -7,6 +7,7 @@ export const Button = (props) => {
       className={props.className}
       onClick={props.onClick}
       onSubmit={props.onSubmit}
+      disabled={props.disabled}
     >
       {props.value}
     </button>

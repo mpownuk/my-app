@@ -53,7 +53,14 @@ export const SearchForm = (props) => {
       });
     });
   };
+  const [searchButtonDisabled, setSearchButtonDisabled] = useState(true);
 
+  useEffect(() => {
+    props.inputValue
+      ? setSearchButtonDisabled(false)
+      : setSearchButtonDisabled(true);
+  }, [props.inputValue]);
+  console.log(searchButtonDisabled);
   return (
     <div className="SearchForm">
       <form onSubmit={props.handleSubmit}>
@@ -66,7 +73,7 @@ export const SearchForm = (props) => {
           disabled={listedPokemons ? false : true}
           value={props.inputValue}
         />
-        <Button type="submit" value="Search!" />
+        <Button type="submit" value="Search!" disabled={searchButtonDisabled} />
       </form>
       {props.inputValue && renderAutocompleteList && (
         <div className="SearchForm--autocomplete">{autocompleteList}</div>
