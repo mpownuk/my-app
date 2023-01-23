@@ -22,13 +22,16 @@ export function PokeDex({ pokemonData, style }) {
   ]);
 
   useEffect(() => {
-    let newNames = [];
-    for (let item of pokeList) {
-      newNames.push(item.name);
+    let arr = [];
+    for (let poke of pokeList) {
+      arr.push(poke.name);
     }
-    setNamesFromPokeList((prev) => [...namesFromPokeList, chosenPokemon.name]);
+    arr = new Set(arr);
+    setNamesFromPokeList(arr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenPokemon]);
-  console.log(pokeList, namesFromPokeList);
+
+  console.log(namesFromPokeList);
 
   useEffect(() => {
     if (allowAddToPokelist) {
