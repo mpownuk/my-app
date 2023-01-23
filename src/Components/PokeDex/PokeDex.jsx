@@ -17,21 +17,6 @@ export function PokeDex({ pokemonData, style }) {
   const [inputValue, setInputValue] = useState("");
   const [currentPokemon, setCurrentPokemon] = useState(pokeList.length);
   const [allowAddToPokelist, setAllowAddToPokelist] = useState(false);
-  const [namesFromPokeList, setNamesFromPokeList] = useState([
-    chosenPokemon.name,
-  ]);
-
-  useEffect(() => {
-    let arr = [];
-    for (let poke of pokeList) {
-      arr.push(poke.name);
-    }
-    arr = new Set(arr);
-    setNamesFromPokeList(arr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chosenPokemon]);
-
-  console.log(namesFromPokeList);
 
   useEffect(() => {
     if (allowAddToPokelist) {
@@ -42,6 +27,11 @@ export function PokeDex({ pokemonData, style }) {
   }, [chosenPokemon]);
 
   const handleChoosePokemon = (data) => {
+    for (let poke of pokeList) {
+      if (poke.name === inputValue) {
+        setAllowAddToPokelist((prev) => false);
+      }
+    }
     setChosenPokemon((prev) => ({
       name: data.species.name,
       image: data.sprites.other["official-artwork"].front_default,
